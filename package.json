@@ -1,0 +1,25 @@
+{
+  "name": "walls-and-gate-booking-api",
+  "version": "1.0.0",
+  "description": "Walls and gate booking api",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon main.js",
+    "test": "jest --testEnvironment=node --runInBand"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "validate.js": "^0.13.1"
+  },
+  "devDependencies": {
+    "prisma": "^6.6.0"
+  }
+}
