@@ -2,7 +2,7 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const Swagger = require("../utils/Swagger");
-const path = require("path");
+const CoreRoute = require("./routes/CoreRoute");
 
 let instance;
 class Server {
@@ -48,8 +48,8 @@ class Server {
 		this.#app.get("/", (req, res) => {
 			const message = {
 				info: "You have reached walls and gates server",
-				baseUrl: "/api/v1/",
-				health: "/api/v1/health",
+				baseUrl: "/api",
+				health: "/api/health",
 				docs: "/swagger",
 			};
 			res.json(message);
@@ -61,7 +61,9 @@ class Server {
 			swaggerUi.setup(this.#swaggerspec)
 		);
 
-		this.#app.get("/api/v1/health", async (req, res) => {
+		this.#app.use("/api", new CoreRoute().getRouter());
+
+		this.#app.get("/api/health", async (req, res) => {
 			const healthInfo = {
 				appMemUsage: (
 					process.memoryUsage().heapUsed /
@@ -75,7 +77,9 @@ class Server {
 
 	start = () => {
 		this.#app.listen(this.#port, async () => {
-			console.log(`walls and gates server is now listening on port ${this.#port}`);
+			console.log(
+				`walls and gates server is now listening on port ${this.#port}`
+			);
 		});
 	};
 
