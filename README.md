@@ -1,83 +1,84 @@
-⸻
+# 🏗️ Walls and Gate Booking API
 
-WALLS-AND-GATE-BOOKING-API
+A backend API for managing bookings in the Walls and Gate reservation system. Built with Node.js, Express, MongoDB, and Prisma, this API handles booking operations, input validation, and data storage for wall and gate reservations.
 
-This is the backend API for a booking system called Walls and Gate, built with Node.js, Express, MongoDB, and Prisma. The API handles bookings, validations, and data storage for wall and gate reservation requests.
+## 🛠️ Tech Stack
 
-⸻
+- **Node.js** – JavaScript runtime environment
+- **Express.js** – Web framework for Node.js
+- **MongoDB** – NoSQL database
+- **Prisma** – Next-generation ORM for MongoDB
+- **validate.js** – Lightweight input validation
+- **dotenv** – Environment variable loader
+- **nodemon** (dev) – Monitors for changes and restarts server during development
 
-🛠 Tech Stack
-• Node.js – Runtime environment
-• Express.js – Server framework
-• MongoDB – Database
-• Prisma – ORM for MongoDB
-• validate.js – Input validation
-• dotenv – Environment variable management
-• nodemon (dev) – Auto-restarting during development
+## 📦 Features
 
-⸻
+- Create and retrieve bookings
+- Input validation with validate.js
+- Modular project structure with clean separation of concerns
+- MongoDB integration using Prisma
+- Global error handling middleware
 
-📦 Features
-• Booking creation and retrieval
-• Validations with validate.js
-• MongoDB integration using Prisma
-• Clean project structure with modular routing
-• Error handling middleware
+## 📁 Project Structure
 
-⸻
-
-📁 Project Structure
-
+```
 walls-and-gate-booking-api/
 ├── prisma/
-│ └── schema.prisma
+│   └── schema.prisma
 ├── src/
-│ ├── controllers/
-│ ├── routes/
-│ ├── services/
-│ ├── constraints/
-│ ├── utils/
-│ ├── main.js
-├── .env
-├── package.json
-└── README.md
+│   ├── constraints/   # Validation schemas
+│   ├── controllers/   # Route handlers
+│   ├── routes/        # API route definitions
+│   ├── services/      # Business logic
+│   ├── utils/         # Utility functions
+│   └── main.js        # Entry point
+├── .env               # Environment configuration
+├── package.json       # Project metadata and scripts
+└── README.md          # Project documentation
+```
 
-⸻
+## 🚀 Getting Started
 
-🚀 Getting Started
+### 1. Clone the Repository
 
-1. Clone the repository
-
+```
 git clone https://github.com/OmosowoeniAderonke/WALLS-AND-GATE-BOOKING-API.git
 cd walls-and-gate-booking-api
+```
 
-2. Install dependencies
+### 2. Install Dependencies
 
+```
 npm install
+```
 
-3. Setup your .env file
+### 3. Configure Environment Variables
 
+Create a `.env` file in the root directory and add:
+
+```
 DATABASE_URL="your_mongodb_connection_string"
 PORT=5000
+```
 
-4. Generate Prisma client
+### 4. Generate Prisma Client
 
+```
 npx prisma generate
+```
 
-5. Start the development server
+### 5. Start the Development Server
 
+```
 npm run dev
+```
 
-⸻
+## 📡 Example Endpoints
 
-🧪 Example Endpoints
-• POST /api/bookings – Create a new booking
-• GET /api/bookings – Retrieve all bookings
+- **POST /api/bookings** – Create a new booking
+- **GET /api/bookings** – Retrieve all bookings
 
-⸻
+## ✅ Validation
 
-✅ Validation
-
-All incoming requests are validated using validate.js. If the input data is invalid.
-
-⸻
+All incoming requests are validated using validate.js. If any required data is missing or invalid, the API responds with a clear error message and a 400 Bad Request status.
