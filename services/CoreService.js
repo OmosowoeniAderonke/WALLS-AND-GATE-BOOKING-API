@@ -24,10 +24,42 @@ class CoreService {
 
 			if (query.term) {
 				whereClause.OR = [
-					{ name: { contains: query.term, mode: "insensitive" } },
+					{ fullName: { contains: query.term, mode: "insensitive" } },
 					{ email: { contains: query.term, mode: "insensitive" } },
-					{ phone: { contains: query.term, mode: "insensitive" } },
+					{
+						phoneNumber: {
+							contains: query.term,
+							mode: "insensitive",
+						},
+					},
 				];
+			}
+
+			if (query.department) {
+				whereClause.department = {
+					contains: query.department,
+					mode: "insensitive",
+				};
+			}
+
+			if (query.startDate || query.endDate) {
+				const start = query.startDate
+					? new Date(query.startDate)
+					: null;
+				const end = query.endDate ? new Date(query.endDate) : null;
+
+				if (start && !isNaN(start.getTime())) {
+					start.setHours(0, 0, 0, 0);
+				}
+
+				if (end && !isNaN(end.getTime())) {
+					end.setHours(23, 59, 59, 999);
+				}
+
+				whereClause.preferredDate = {
+					...(start ? { gte: start } : {}),
+					...(end ? { lte: end } : {}),
+				};
 			}
 
 			const [bookingsCount, bookings] = await Promise.all([
@@ -51,12 +83,12 @@ class CoreService {
 				status: 200,
 				data: {
 					bookings,
-					total: totalBillings,
+					total: bookingsCount,
 					page: page || 1,
 					hasPrevious,
 					hasNext,
 					total_pages,
-					per_page: size || totalBillings,
+					per_page: size || bookingsCount,
 				},
 			});
 		} catch (error) {
@@ -68,13 +100,14 @@ class CoreService {
 		}
 	};
 
-	createBooking = async (payload) => {
+	createBooking = async (payload, callback) => {
 		try {
+			payload.preferredDate = new Date(payload.preferredDate);
 			const booking = await this.#prisma.booking.create({
 				data: payload,
 			});
 
-			res.status(201).json({
+			callback({
 				status: 201,
 				data: booking,
 			});

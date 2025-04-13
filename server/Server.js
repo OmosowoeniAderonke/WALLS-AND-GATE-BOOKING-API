@@ -1,7 +1,5 @@
 "use strict";
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
-const Swagger = require("../utils/Swagger");
 const CoreRoute = require("./routes/CoreRoute");
 
 let instance;
@@ -14,7 +12,6 @@ class Server {
 		if (instance) return instance;
 
 		this.#port = port;
-		this.#swaggerspec = new Swagger().getSwaggerSpec();
 		this.#configure();
 		this.#buildRoutes();
 
@@ -50,16 +47,9 @@ class Server {
 				info: "You have reached walls and gates server",
 				baseUrl: "/api",
 				health: "/api/health",
-				docs: "/swagger",
 			};
 			res.json(message);
 		});
-
-		this.#app.use(
-			"/swagger",
-			swaggerUi.serve,
-			swaggerUi.setup(this.#swaggerspec)
-		);
 
 		this.#app.use("/api", new CoreRoute().getRouter());
 

@@ -7,12 +7,6 @@ class CoreConstraint {
 	}
 
 	getBookings = () => ({
-		term: {
-			presence: true,
-			length: {
-				minimum: 2,
-			},
-		},
 		page: {
 			presence: true,
 			numericality: {
@@ -25,6 +19,29 @@ class CoreConstraint {
 				onlyInteger: true,
 				greaterThan: 0,
 			},
+		},
+		term: {
+			length: {
+				minimum: 2,
+			},
+		},
+		department: {
+			inclusion: {
+				within: [
+					"INNOVATIVE_TECHNOLOGY_SOLUTIONS",
+					"CREATIVE_AND_PRINTS_SOLUTION",
+					"DIGITAL_MARKETING_SOLUTIONS",
+					"WALLS_AND_GATES_ACADEMY",
+				],
+				message:
+					"^Department must be one of 'INNOVATIVE_TECHNOLOGY_SOLUTIONS', 'CREATIVE_AND_PRINTS_SOLUTION', 'DIGITAL_MARKETING_SOLUTIONS', or 'WALLS_AND_GATES_ACADEMY'",
+			},
+		},
+		startDate: {
+			datetime: true,
+		},
+		endDate: {
+			datetime: true,
 		},
 	});
 
@@ -50,7 +67,6 @@ class CoreConstraint {
 			datetime: true,
 		},
 		message: {
-			presence: true,
 			length: {
 				minimum: 5,
 			},
