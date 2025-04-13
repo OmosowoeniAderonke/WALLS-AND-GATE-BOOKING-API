@@ -1,7 +1,6 @@
 let express = require("express");
 let CoreController = require("../../controllers/CoreController");
 
-
 let instance;
 class CoreRouter {
 	#router;
@@ -19,6 +18,7 @@ class CoreRouter {
 
 	#configure = () => {
 		this.#router.get("/bookings", this.#controller.getBookings);
+
 		this.#router.post("/bookings", this.#controller.createBooking);
 	};
 

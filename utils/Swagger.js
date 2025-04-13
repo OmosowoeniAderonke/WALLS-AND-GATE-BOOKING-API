@@ -20,7 +20,7 @@ class Swagger {
 
 		this.#options = {
 			swaggerDefinition: this.#swaggerDefinition,
-			apis: ["./server/routes/*.js"],
+			apis: [__dirname + "/../routes/**/*.js"],
 		};
 
 		instance = this;
