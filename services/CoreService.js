@@ -29,6 +29,7 @@ class CoreService {
 					{ phone: { contains: query.term, mode: "insensitive" } },
 				];
 			}
+
 			const [bookingsCount, bookings] = await Promise.all([
 				this.#prisma.booking.count({ where: whereClause }),
 				this.#prisma.booking.findMany({
@@ -67,10 +68,10 @@ class CoreService {
 		}
 	};
 
-	createBooking = async (req, res) => {
+	createBooking = async (payload) => {
 		try {
 			const booking = await this.#prisma.booking.create({
-				data: req.body,
+				data: payload,
 			});
 
 			res.status(201).json({
