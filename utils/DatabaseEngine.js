@@ -1,15 +1,13 @@
 const { PrismaClient } = require("@prisma/client");
 
+let instance;
 class DatabaseEngine {
-	static instance;
-
 	constructor() {
-		if (DatabaseEngine.instance) {
-			return DatabaseEngine.instance;
-		}
+		if (instance) return instance;
 
 		this.prisma = new PrismaClient();
-		DatabaseEngine.instance = this;
+
+		instance = this;
 	}
 
 	async connect() {
